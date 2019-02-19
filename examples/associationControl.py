@@ -6,6 +6,7 @@ from mininet.node import Controller
 from mininet.log import setLogLevel, info
 from mn_wifi.cli import CLI_wifi
 from mn_wifi.net import Mininet_wifi
+from time import sleep
 
 
 def topology():
@@ -15,7 +16,7 @@ def topology():
     info("*** Creating nodes\n")
     net.addStation('sta1', mac='00:00:00:00:00:02', ip='10.0.0.2/8')
     net.addStation('sta2', mac='00:00:00:00:00:03', ip='10.0.0.3/8')
-    net.addStation('sta3', mac='00:00:00:00:00:04', ip='10.0.0.4/8')
+    sta3 = net.addStation('sta3', mac='00:00:00:00:00:04', ip='10.0.0.4/8')
     net.addStation('sta4', mac='00:00:00:00:00:05', ip='10.0.0.5/8')
     net.addStation('sta5', mac='00:00:00:00:00:06', ip='10.0.0.6/8')
     net.addStation('sta6', mac='00:00:00:00:00:07', ip='10.0.0.7/8')
@@ -51,6 +52,10 @@ def topology():
     ap1.start([c1])
     ap2.start([c1])
     ap3.start([c1])
+
+    while True:
+        info('%r\n' % sta3.cmd('iw dev sta3-wlan0 link'))
+        sleep(2)
 
     info("*** Running CLI\n")
     CLI_wifi(net)

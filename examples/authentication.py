@@ -1,6 +1,8 @@
 #!/usr/bin/python
 
 'This example shows how to work with authentication'
+#wifi密码验证实例
+
 
 from mininet.log import setLogLevel, info
 from mn_wifi.cli import CLI_wifi

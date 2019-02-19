@@ -12,6 +12,9 @@ from mn_wifi.cli import CLI_wifi
 from mn_wifi.net import Mininet_wifi
 from mn_wifi.wmediumdConnector import interference
 
+#adhoc shows how to set up experiments with adhoc mode,
+# where stations connect to each other without passing through an access point.
+
 
 def topology(autoTxPower):
     "Create a network."
@@ -31,6 +34,8 @@ def topology(autoTxPower):
 
     info("*** Configuring wifi nodes\n")
     net.configureWifiNodes()
+
+    net.plotGraph(max_x=100, max_y=100)
 
     info("*** Creating links\n")
     net.addLink(sta1, cls=adhoc, ssid='adhocNet',

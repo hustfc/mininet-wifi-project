@@ -1,6 +1,6 @@
-interface=ap1-wlan1
+interface=sta1-wlan2
 driver=nl80211
-ssid=new-ssid
+ssid=-ssid1
 wds_sta=1
 hw_mode=g
 channel=1

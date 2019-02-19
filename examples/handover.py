@@ -1,11 +1,14 @@
 #!/usr/bin/python
 
 'Example for Handover'
+'handover.py shows how to create a simple mobility scenario where a station moves past two access points,' \
+' causing the station to hand off from one to the other.'
 
 from mininet.node import Controller
 from mininet.log import setLogLevel, info
 from mn_wifi.cli import CLI_wifi
 from mn_wifi.net import Mininet_wifi
+from time import sleep
 
 
 def topology():
@@ -14,7 +17,7 @@ def topology():
 
     info("*** Creating nodes\n")
     sta1 = net.addStation('sta1', mac='00:00:00:00:00:02', ip='10.0.0.2/8',
-                          range=20)
+                          range=50)
     sta2 = net.addStation('sta2', mac='00:00:00:00:00:03', ip='10.0.0.3/8',
                           range=20)
     ap1 = net.addAccessPoint('ap1', ssid='ssid-ap1', mode='g', channel='1',
@@ -46,6 +49,11 @@ def topology():
     ap1.start([c1])
     ap2.start([c1])
 
+    time = 0
+    while time <= 10:
+        info('%r\n' % sta1.cmd('iw dev sta1-wlan0 link'))
+        sleep(1)
+        time += 1
     info("*** Running CLI\n")
     CLI_wifi(net)
 

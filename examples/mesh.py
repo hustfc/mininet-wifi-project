@@ -46,6 +46,8 @@ def topology(mobility):
     net.addLink(sta3, cls=mesh, ssid='meshNet',
                 channel=5, ht_cap='HT40+') #, passwd='thisisreallysecret')
 
+    net.plotGraph(max_x=100, max_y=100)
+
     if mobility:
         net.plotGraph(max_x=100, max_y=100)
         net.startMobility(time=0, model='RandomDirection',
