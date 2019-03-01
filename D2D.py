@@ -32,6 +32,10 @@ def topology(D2D, AP):
     sta1.cmd('ifconfig mon0 up')
     sta1.cmd('wireshark -i mon0 &')
 
+    sta1.cmd('iw dev %s interface add mon1 type monitor' % sta1.params['wlan'][1])
+    sta1.cmd('ifconfig mon1 up')
+    sta1.cmd('wireshark -i mon1 &')
+
     info("*** Creating links\n")
     if AP:
         net.addLink(ap1, sta1)
