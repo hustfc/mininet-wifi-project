@@ -2,5 +2,9 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/mininet-wifi" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/mininet-wifi/hostap" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/mininet-wifi/iw" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/mininet-wifi/mininet" vcs="Git" />
   </component>
 </project>

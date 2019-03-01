@@ -13,10 +13,10 @@ def topology(D2D, AP):
     net = Mininet_wifi(link=wmediumd, wmediumd_mode=interference)
 
     info("*** Creating nodes\n")
-    sta1 = net.addStation('sta1', wlans=2, position='5,5,0',
-                          mac='00:00:00:00:00:01', ip='10.0.0.1/8')
-    sta2 = net.addStation('sta2', wlans=2, position='15,5,0',
-                          mac='00:00:00:00:00:02', ip='10.0.0.2/8')
+    sta1 = net.addStation('sta1', wlans=2, position='5,5,0',ip='10.0.0.1/8,10.0.0.2/8',
+                          mac='00:00:00:00:00:01,00:00:00:00:00:02')
+    sta2 = net.addStation('sta2', wlans=2, position='15,5,0',ip='10.0.0.3/8,10.0.0.4/8',
+                          mac='00:00:00:00:00:03,00:00:00:00:00:04')
     if AP:
         ap1 = net.addAccessPoint('ap1', ssid='ssid-ap1', mode='g', channel='1',
                              position='10,10,0')
@@ -36,6 +36,7 @@ def topology(D2D, AP):
     sta1.cmd('ifconfig mon1 up')
     sta1.cmd('wireshark -i mon1 &')
 
+    info(ap1.params['wlan'])
     info("*** Creating links\n")
     if AP:
         net.addLink(ap1, sta1)
