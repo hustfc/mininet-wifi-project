@@ -6,8 +6,7 @@ from mn_wifi.link import wmediumd, adhoc
 from mn_wifi.cli import CLI_wifi
 from mn_wifi.net import Mininet_wifi
 from mn_wifi.wmediumdConnector import interference
-from scapy.all import IP, TCP, send
-from time import sleep
+from time import sleep, time
 
 def topology(D2D, AP):
     "Create a network."
@@ -35,12 +34,6 @@ def topology(D2D, AP):
     net.configureWifiNodes()
     net.plotGraph(max_x=20, max_y=20)
 
-    sta1.cmd('ifconfig %s up' % sta1.params['wlan'][0])
-    sta1.cmd('wireshark -i sta1-wlan0 &')
-
-    sta1.cmd('ifconfig %s up' % sta1.params['wlan'][1])
-    sta1.cmd('wireshark -i sta1-wlan1 &')
-
 
     # sta1.cmd('iw dev %s interface add mon0 type monitor' % sta1.params['wlan'][0])
     # sta1.cmd('ifconfig mon0 up')
@@ -58,7 +51,7 @@ def topology(D2D, AP):
         net.addLink(sta1, cls=adhoc, ssid='adhocNet',
                     mode='g', channel=5, ht_cap='HT40+')
         net.addLink(sta2, cls=adhoc, ssid='adhocNet',
-                    mode='g', channel=5)
+                    mode='g', channel=5, ht_cap='HT40+')
 
     info("*** Starting network\n")
     net.build()
@@ -66,28 +59,31 @@ def topology(D2D, AP):
     if AP:
         ap1.start([c1])
 
+    sta1.cmd('ifconfig %s up' % sta1.params['wlan'][0])
+    sta1.cmd('wireshark -i sta1-wlan0 &')
+
+    sta1.cmd('ifconfig %s up' % sta1.params['wlan'][1])
+    sta1.cmd('wireshark -i sta1-wlan1 &')
+
     info("*** Print network status messages\n")
     info("\nsta1 status:\n")
     info('%s\n' % sta1.cmd('iwconfig'))
     info("sta2 status:\n")
     info('%s\n' % sta2.cmd('iwconfig'))
 
-    # info('%s\n' % sta2.cmd('iperf -s -p 5566 -i 1'))
-    # info('%s\n' % sta1.cmd('iperf -c 10.0.0.3 -p 5566 -t 15'))
 
-
-    #sta1.cmd('xterm open')
+    # info('*** AP communicaite')
+    # start = time()
+    # sta1.cmd('sta1 iw dev sta1-wlan1 disconnect')
+    # sta2.cmd('sta2 iw dev sta2-wlan1 disconnect')
+    # while True:
+    #     sleep(1)
 
 
 
     info("*** Running CLI\n")
     CLI_wifi(net)
-    # while True:
-    #     info('*** Send Packets\n')
-    #     data = 'AP'
-    #     pkt = IP(src='10.0.0.3', dst='10.0.0.1') / TCP() / data
-    #     sta2.cmd('send(%s)' % pkt)
-    #     sleep(1)
+
 
     info("*** Stopping network\n")
     net.stop()

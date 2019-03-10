@@ -6,12 +6,13 @@ from __future__ import print_function
 from mininet.log import setLogLevel, info
 from mn_wifi.cli import CLI_wifi
 from mn_wifi.net import Mininet_wifi
-from mn_wifi.link import adhoc
+from mn_wifi.link import adhoc, wmediumd
+from mn_wifi.wmediumdConnector import interference
 
 
 def topology():
     "Create a network."
-    net = Mininet_wifi()
+    net = Mininet_wifi(link=wmediumd, wmediumd_mode=interference)
 
     info("*** Creating nodes\n")
     sta1 = net.addStation('sta1', wlans=3)  # 3 wlan added
