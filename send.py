@@ -9,14 +9,18 @@ import sys
 
 def send(src, dst, times=20):
     t = 0
+    alpha = 'a'
     while t < times:
         time.sleep(4)
         now = time.time()
-        msg = "send_time: " + "%.6f" % float(now) + " msg: "
+        msg = "send_time: " + "%.6f" % float(now) + " msg: " + alpha
         print(msg)
         #msg = str(now) + " " + raw
         p = Ether() / IP(src=src, dst=dst) / ICMP() / msg
         sendp(p, iface = "sta1-wlan0")
         # print msg
         t += 1
-send('10.0.0.1','10.0.0.2')
+        alpha = chr(ord(alpha) + 1)
+src = '10.0.0.1'
+dst = '10.0.0.2'
+send(src, dst)
