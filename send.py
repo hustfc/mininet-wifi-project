@@ -18,7 +18,6 @@ def send(src, dst, times=20):
         #msg = str(now) + " " + raw
         p = Ether() / IP(src=src, dst=dst) / ICMP() / msg
         sendp(p, iface = "sta1-wlan0")
-        # print msg
         t += 1
         alpha = chr(ord(alpha) + 1)
 src = '10.0.0.1'
