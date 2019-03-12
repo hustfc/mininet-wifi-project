@@ -1,6 +1,10 @@
 from numpy import random
 import math
 from mininet.log import info
+# from mn_wifi import propagationModels
+# from random import gauss
+
+
 
 def energy(sta, ap, time):
     staPosition = sta.params['position'][0:2]

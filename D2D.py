@@ -35,11 +35,11 @@ def topology(D2D, AP):
     net.configureWifiNodes()
     net.plotGraph(max_x=20, max_y=20)
 
-    sta1.cmd('ifconfig %s up' % sta1.params['wlan'][0])
-    sta1.cmd('wireshark -i sta1-wlan0 &')
-
-    sta1.cmd('ifconfig %s up' % sta1.params['wlan'][1])
-    sta1.cmd('wireshark -i sta1-wlan1 &')
+    # sta1.cmd('ifconfig %s up' % sta1.params['wlan'][0])
+    # sta1.cmd('wireshark -i sta1-wlan0 &')
+    #
+    # sta1.cmd('ifconfig %s up' % sta1.params['wlan'][1])
+    # sta1.cmd('wireshark -i sta1-wlan1 &')
 
 
     # sta1.cmd('iw dev %s interface add mon0 type monitor' % sta1.params['wlan'][0])
@@ -72,22 +72,9 @@ def topology(D2D, AP):
     info("sta2 status:\n")
     info('%s\n' % sta2.cmd('iwconfig'))
 
-    # info('%s\n' % sta2.cmd('iperf -s -p 5566 -i 1'))
-    # info('%s\n' % sta1.cmd('iperf -c 10.0.0.3 -p 5566 -t 15'))
-
-
-    #sta1.cmd('xterm open')
-
-
 
     info("*** Running CLI\n")
     CLI_wifi(net)
-    # while True:
-    #     info('*** Send Packets\n')
-    #     data = 'AP'
-    #     pkt = IP(src='10.0.0.3', dst='10.0.0.1') / TCP() / data
-    #     sta2.cmd('send(%s)' % pkt)
-    #     sleep(1)
 
     info("*** Stopping network\n")
     net.stop()

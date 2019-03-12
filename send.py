@@ -6,20 +6,18 @@ from scapy.all import Ether, IP, ICMP
 import time
 
 import sys
+import fire
 
-def send(src, dst, times=20):
+def send(src, iface, dst, times=20):
     t = 0
     alpha = 'a'
     while t < times:
-        time.sleep(4)
+        time.sleep(2)
         now = time.time()
         msg = "send_time: " + "%.6f" % float(now) + " msg: " + alpha
         print(msg)
-        #msg = str(now) + " " + raw
         p = Ether() / IP(src=src, dst=dst) / ICMP() / msg
-        sendp(p, iface = "sta1-wlan0")
+        sendp(p, iface = iface)
         t += 1
         alpha = chr(ord(alpha) + 1)
-src = '10.0.0.1'
-dst = '10.0.0.2'
-send(src, dst)
+fire.Fire(send)

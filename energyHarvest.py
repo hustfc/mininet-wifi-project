@@ -10,13 +10,13 @@ def topology():
     net = Mininet_wifi(link=wmediumd, wmediumd_mode=interference)
 
     info("*** Creating nodes\n")
-    sta1 = net.addStation('sta1', position='5,5,0', ip='10.0.0.1/8', mac='00:00:00:00:00:01')
-    sta2 = net.addStation('sta2', position='15,5,0', ip='10.0.0.2/8', mac='00:00:00:00:00:02')
+    sta1 = net.addStation('sta1', position='5,5,0', ip='10.0.0.1', mac='00:00:00:00:00:01')
+    sta2 = net.addStation('sta2', position='15,5,0', ip='10.0.0.2', mac='00:00:00:00:00:02')
     ap1 = net.addAccessPoint('ap1', ssid='ssid-ap1', mode='g', channel='1', position='10,10,0', ip='10.0.0.3/8')
 
     c1 = net.addController('c1')
 
-    net.setPropagationModel(model="logDistance", exp=5)
+    net.setPropagationModel(model="logDistance", exp=2)
 
     info("*** Configuring wifi nodes\n")
     net.configureWifiNodes()
