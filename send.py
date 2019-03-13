@@ -8,13 +8,14 @@ import time
 import sys
 import fire
 
-def send(src, iface, dst, times=20):
+def send(src, iface, dst, times=20, send_pkt=[]):
     t = 0
     alpha = 'a'
     while t < times:
-        time.sleep(2)
+        time.sleep(1)
         now = time.time()
         msg = "send_time: " + "%.6f" % float(now) + " msg: " + alpha
+        send_pkt.append(msg)
         print(msg)
         p = Ether() / IP(src=src, dst=dst) / ICMP() / msg
         sendp(p, iface = iface)

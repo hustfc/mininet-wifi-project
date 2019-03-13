@@ -4,6 +4,8 @@ from mn_wifi.cli import CLI_wifi
 from mn_wifi.net import Mininet_wifi
 from mn_wifi.wmediumdConnector import interference
 from energy import energy
+from send import send
+from receive import receive
 
 def topology():
     "Create a network."
@@ -21,7 +23,7 @@ def topology():
     info("*** Configuring wifi nodes\n")
     net.configureWifiNodes()
     net.plotGraph(max_x=20, max_y=20)
-    ap1.setIP('10.0.0.3',intf='ap1-wlan1')
+    ap1.setIP('10.0.0.3', intf='ap1-wlan1')
 
     info("*** Creating links\n")
     net.addLink(ap1, sta1)
@@ -32,8 +34,13 @@ def topology():
     c1.start()
     ap1.start([c1])
 
+    info('*** Step 1.')
+    t0 = 5
+    t1 = 5
+    t2 = 10
     info('*** Energy Harvest\n')
-    energy(sta1, ap1, 10)
+    energy(sta1, ap1, t0)
+    
     info('***\n')
 
     info("*** Running CLI\n")
