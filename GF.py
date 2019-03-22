@@ -7,7 +7,7 @@ primitive_polynomial_dict = {4: 0b10011,  # x**4  + x  + 1
 class GF:
     def __init__(self, w):
         self.w = w
-        self.total = 1 << self.w
+        self.total = (1 << self.w) - 1
         self.gflog = []
         self.gfilog = [1] # g(0) = 1
         self.make_gf_dict(self.w, self.gflog, self.gfilog)
@@ -44,15 +44,21 @@ class GF:
     def div(self, a, b):
         return self.gfilog[(self.gflog[a] - self.gflog[b]) % self.total]
 
+
 gf = GF(4)
-a = gf.add(15, 13)
-print(a)
-b = gf.sub(a, 13)
-print(b)
-a = gf.mul(15, 14)
-print(a)
-b = gf.div(a, 14)
-print(b)
+import random
+t = 0
+while t <= 20:
+    a = random.randint(1, 2 ** 4 - 1)
+    b = random.randint(1, 2 ** 4 - 1)
+    c = gf.add(a, b)
+    d = gf.mul(a, b)
+    print('%d + %d = %d' % (a, b, c))
+    print('%d - %d = %d' % (c, a, gf.sub(c, a)))
+    print('%d * %d = %d' % (a, b, d))
+    print('%d / %d = %d' % (d, a, gf.div(d, a)))
+    print()
+    t += 1
 
 
 
