@@ -7,6 +7,7 @@ primitive_polynomial_dict = {4: 0b10011,  # x**4  + x  + 1
 class GF:
     def __init__(self, w):
         self.w = w
+        self.total = 1 << self.w
         self.gflog = []
         self.gfilog = [1] # g(0) = 1
         self.make_gf_dict(self.w, self.gflog, self.gfilog)
@@ -15,9 +16,9 @@ class GF:
         gf_element_total_number = 1 << w
         primitive_polynomial = primitive_polynomial_dict[w]
         for i in range(1, gf_element_total_number - 1):
-            temp = gfilog[i - 1] << 1  # g(i) = g(i-1) * g
-            if temp & gf_element_total_number:  # 如果溢出，那么异或primitive polynomial
-                temp ^= primitive_polynomial  # mod primitive_polynomial in GF(2**w) == XOR
+            temp = gfilog[i - 1] << 1  # g(i) = g(i-1) * 2
+            if temp & gf_element_total_number:  # 判断溢出
+                temp ^= primitive_polynomial  # 异或本原多项式
             gfilog.append(temp)
 
         assert (gfilog[gf_element_total_number - 2] << 1) ^ primitive_polynomial
@@ -31,19 +32,28 @@ class GF:
         print(gflog)
         print(gfilog)
 
+    def add(self, a, b):
+        return (a ^ b) % self.total
+
+    def sub(self, a, b):
+        return (a ^ b) % self.total
+
     def mul(self, a, b):
-        total = (1 << self.w) - 1
-        return self.gfilog[(self.gflog[a] + self.gflog[b]) % total]
+        return self.gfilog[(self.gflog[a] + self.gflog[b]) % self.total]
 
     def div(self, a, b):
-        total = (1 << self.w) - 1
-        return self.gfilog[(self.gflog[a] - self.gflog[b]) % total]
+        return self.gfilog[(self.gflog[a] - self.gflog[b]) % self.total]
 
 gf = GF(4)
-a = gf.mul(7, 9)
+a = gf.add(15, 13)
 print(a)
-b = gf.div(a, 9)
+b = gf.sub(a, 13)
 print(b)
+a = gf.mul(15, 14)
+print(a)
+b = gf.div(a, 14)
+print(b)
+
 
 
 
