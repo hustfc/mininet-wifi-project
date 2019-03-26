@@ -1,7 +1,7 @@
 from scapy.all import sniff, sendp
 from scapy.all import Packet
 from scapy.all import ShortField, IntField, LongField, BitField
-from scapy.all import Ether, IP, ICMP
+from scapy.all import Ether, IP, ICMP, UDP
 
 import time
 
@@ -17,7 +17,8 @@ def send(src, iface, dst, times=20, send_pkt=[]):
         msg = "send_time: " + "%.6f" % float(now) + " msg: " + alpha
         send_pkt.append(msg)
         print(msg)
-        p = Ether() / IP(src=src, dst=dst) / ICMP() / msg
+        #p = Ether() / IP(src=src, dst=dst) / ICMP() / msg
+        p = Ether() / IP(src=src, dst=dst) / UDP() / msg
         sendp(p, iface = iface)
         t += 1
         alpha = chr(ord(alpha) + 1)

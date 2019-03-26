@@ -1,7 +1,7 @@
 import GF
 import numpy as np
 
-w = 4
+w = 8
 total = 2 ** w
 
 gf = GF.GF(w)
@@ -16,12 +16,11 @@ def vector_mul(a, b):
 
 def encode(packet):
     size = len(packet)
-    k = 0
-    while k != size:
-        coefficients_matrix = np.random.randint(1, 2 ** w - 1, size=[size, size])
-        k = np.linalg.matrix_rank(coefficients_matrix)
+    cols = int(size * 1.5)
+    coefficients_matrix = np.random.randint(1, 2 ** w - 1, size=[cols, size])
+    k = np.linalg.matrix_rank(coefficients_matrix)
     encode_matrix = []
-    for i in range(size):
+    for i in range(cols):
         encode_matrix.append(vector_mul(coefficients_matrix[i], packet))
     return coefficients_matrix, encode_matrix
 
