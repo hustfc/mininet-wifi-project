@@ -29,8 +29,8 @@ class GF:
 
         for i in range(0, gf_element_total_number - 1):
             gflog[gfilog[i]] = i
-        print(gflog)
-        print(gfilog)
+        # print(gflog)
+        # print(gfilog)
 
     def add(self, a, b):
         return (a ^ b) % self.total
@@ -39,29 +39,27 @@ class GF:
         return (a ^ b) % self.total
 
     def mul(self, a, b):
+        if a == 0 or b == 0:
+            return 0
         return self.gfilog[(self.gflog[a] + self.gflog[b]) % self.total]
 
     def div(self, a, b):
+        if a == 0:
+            return 0
         return self.gfilog[(self.gflog[a] - self.gflog[b]) % self.total]
 
 
-gf = GF(4)
-import random
-t = 0
-while t <= 20:
-    a = random.randint(1, 2 ** 4 - 1)
-    b = random.randint(1, 2 ** 4 - 1)
-    c = gf.add(a, b)
-    d = gf.mul(a, b)
-    print('%d + %d = %d' % (a, b, c))
-    print('%d - %d = %d' % (c, a, gf.sub(c, a)))
-    print('%d * %d = %d' % (a, b, d))
-    print('%d / %d = %d' % (d, a, gf.div(d, a)))
-    print()
-    t += 1
 
-
-
-
-
-
+# import random
+# t = 0
+# while t <= 20:
+#     a = random.randint(1, 2 ** 4 - 1)
+#     b = random.randint(1, 2 ** 4 - 1)
+#     c = gf.add(a, b)
+#     d = gf.mul(a, b)
+#     print('%d + %d = %d' % (a, b, c))
+#     print('%d - %d = %d' % (c, a, gf.sub(c, a)))
+#     print('%d * %d = %d' % (a, b, d))
+#     print('%d / %d = %d' % (d, a, gf.div(d, a)))
+#     print()
+#     t += 1
