@@ -17,8 +17,7 @@ def vector_mul(a, b):
 def encode(packet):
     size = len(packet)
     cols = int(size * 1.5)
-    coefficients_matrix = np.random.randint(1, 2 ** w - 1, size=[cols, size])
-    k = np.linalg.matrix_rank(coefficients_matrix)
+    coefficients_matrix = np.random.randint(0, 2 ** w - 1, size=[cols, size])
     encode_matrix = []
     for i in range(cols):
         encode_matrix.append(vector_mul(coefficients_matrix[i], packet))

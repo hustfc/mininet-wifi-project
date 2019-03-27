@@ -41,6 +41,7 @@ class GF:
     def mul(self, a, b):
         if a == 0 or b == 0:
             return 0
+        #print('a, b:', a, b)
         return self.gfilog[(self.gflog[a] + self.gflog[b]) % self.total]
 
     def div(self, a, b):
