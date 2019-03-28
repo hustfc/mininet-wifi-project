@@ -114,6 +114,7 @@ def print_result(sigma, main_factor):
     print('方程的通解是：\n',)
     for i in range(n-1):
         print('x_' + str(i+1), '=', result[i])
+    return result
 
 
 # 得到简化的阶梯矩阵和主元列
@@ -130,18 +131,30 @@ def solve(a, b, length):
         print('no answer')
     print('方程的主元列为：')
     print(main_factor[0:length])
-    print_result(sigma, main_factor)
-    return sigma, main_factor
+    res = print_result(sigma, main_factor)
+    return sigma, res
 
 from encode import encode
 
 if __name__ == '__main__':
-    packet = [41,21,52,61,13,12]
-    coe, encodedP = encode(packet)
-    print('随机编码矩阵:')
-    print(coe[0:len(packet)])
-    print('伽罗华域编码之后的包:')
-    print(encodedP[0:len(packet)])
-    print()
-    sigma,mf = solve(coe, encodedP, len(packet))
-    print('*' * 20)
+    success, error = 0, 0
+    for t in range(1000):
+        packets = [32, 41, 15, 21, 43, 41, 43, 54, 12, 54, 42, 23, 42, 54, 98, 123, 23]
+        coe, encodedP = encode(packets)
+        print('随机编码矩阵:')
+        print(coe)
+        print('伽罗华域编码之后的包:')
+        print(encodedP)
+        print()
+        try:
+            sigma, res = solve(coe, encodedP, len(packets))
+            if res and int(res[0]) == packets[0]:
+                success += 1
+            else:
+                error += 1
+        except:
+            error += 1
+        print('*' * 20)
+    print('成功:', success)
+    print('失败:', error)
+    print('成功率：%.3f' % (success / (success + error)))

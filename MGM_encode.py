@@ -58,5 +58,6 @@ def encode(packets):
 
     print('编码包')
     print(encode_matrix)
-packets = [[1,2],[3,4],[5,6]]
-encode(packets)
+    return coe_matrix, encode_matrix
+# packets = [[1,2],[3,4],[5,6]]
+# encode(packets)
