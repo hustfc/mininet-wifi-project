@@ -33,10 +33,10 @@ class GF:
         # print(gfilog)
 
     def add(self, a, b):
-        return (a ^ b) % self.total
+        return a ^ b
 
     def sub(self, a, b):
-        return (a ^ b) % self.total
+        return a ^ b
 
     def mul(self, a, b):
         if a == 0 or b == 0:
