@@ -111,7 +111,7 @@ def print_result(sigma, main_factor):
                     result[i] = result[i] + '-' + str(ratio) + 'x_' + str(j+1)
                 if ratio < 0:
                     result[i] = result[i] + '+' + str(-ratio) + 'x_' + str(j+1)
-    print('方程的通解是：\n',)
+    print('方程的通解是',)
     for i in range(n-1):
         print('x_' + str(i+1), '=', result[i])
     return result
@@ -155,6 +155,7 @@ if __name__ == '__main__':
         except:
             error += 1
         print('*' * 20)
+        print()
     print('成功:', success)
     print('失败:', error)
     print('成功率：%.3f' % (success / (success + error)))

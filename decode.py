@@ -111,7 +111,7 @@ def print_result(sigma, main_factor):
                     result[i] = result[i] + '-' + str(ratio) + 'x_' + str(j+1)
                 if ratio < 0:
                     result[i] = result[i] + '+' + str(-ratio) + 'x_' + str(j+1)
-    print('方程的通解是：\n',)
+    print('方程的通解是:',)
     for i in range(n-1):
         print('x_' + str(i+1), '=', result[i])
     return result
@@ -138,8 +138,8 @@ from encode import encode
 
 if __name__ == '__main__':
     success, error = 0, 0
-    for t in range(1000):
-        packets = [32, 41, 15, 21, 43, 41, 43, 54, 12, 54, 42, 23, 42, 54, 98, 123, 23]
+    for t in range(50):
+        packets = [32, 41, 15, 21, 43, 41, 43, 54, 12, 54, 42, 23, 42, 54, 98, 123, 23, 43, 23, 43, 64, 12, 82, 43, 45, 13] * 10
         coe, encodedP = encode(packets)
         print('随机编码矩阵:')
         print(coe)
@@ -155,6 +155,7 @@ if __name__ == '__main__':
         except:
             error += 1
         print('*' * 20)
+        print()
     print('成功:', success)
     print('失败:', error)
     print('成功率：%.3f' % (success / (success + error)))
